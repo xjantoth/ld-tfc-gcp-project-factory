@@ -1,0 +1,65 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: check-yaml
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.96.1
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_validate
+      - id: terraform_tflint
+      - id: terraform_providers_lock
+        args:
+          - --hook-config=--mode=only-check-is-current-lockfile-cross-platform
+      # static analysis and security scanners
+      # - id: terraform_checkov
+      # - id: terraform_trivy
+      # - id: terrascan
+  - repo: https://github.com/terraform-docs/terraform-docs
+    rev: v0.19.0
+    hooks:
+      - id: terraform-docs-go
+        args: ["markdown", "table", "--output-file", "README.md", "./"]
+
+  - repo: local
+    hooks:
+      - id: black
+        name: black
+        entry: black
+        language: system
+        types: [ python ]
+        files: ^(app/|tests/)
+      - id: isort
+        name: isort
+        entry: isort
+        language: system
+        types: [ python ]
+        include: ^(app/|tests/)
+        exclude: '.*/migrations/.*'
+        args: [
+            '--line-length=110',
+            '--multi-line=3',
+            '--force-grid-wrap=0',
+            '--trailing-comma',
+            '--use-parentheses',
+            '--ensure-newline-before-comments',
+        ]
+      - id: flake8
+        name: flake8
+        entry: flake8
+        language: system
+        types: [ python ]
+        files: ^(app/|tests/)
