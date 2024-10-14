@@ -143,7 +143,7 @@ resource "tfe_workspace" "this" {
   organization      = tfe_organization.this.name
   queue_all_runs    = true
   terraform_version = "1.8.3"
-  # working_directory    = "."
+  working_directory = "tf-demo-code"
   vcs_repo {
     branch         = "main"
     identifier     = "xjantoth/demo-tf-vault-gcp"
