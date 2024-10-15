@@ -40,3 +40,5 @@ blueprints/cloud-operations/network-dashboard/cloud-function.zip
 modules/**
 **/*.bak
 **/venv*
+**/demo
+tf-setup/demo-user-data.sh

@@ -69,3 +69,18 @@ variable "variable_sets" {
   }))
   default = {}
 }
+
+variable "source_ranges" {
+  type        = list(string)
+  description = "Allowed source ranges for Vault instance."
+}
+
+variable "VAULT_PROJECT_ID" {
+  type        = string
+  description = "GCP project where Vault will be deployed."
+}
+
+variable "tfc_address" {
+  type        = string
+  description = "Terraform Cloud address."
+}
