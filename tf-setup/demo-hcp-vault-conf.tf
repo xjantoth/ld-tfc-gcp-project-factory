@@ -36,7 +36,7 @@ resource "vault_gcp_secret_static_account" "this" {
 
 resource "vault_jwt_auth_backend" "jwt" {
   description        = "Terraform Cloud JWT auth backend"
-  path               = "jwtx"
+  path               = "jwt"
   oidc_discovery_url = var.tfc_address #
   bound_issuer       = var.tfc_address #
   # oidc_discovery_ca_pem = file("app.terraform.io.cer")
