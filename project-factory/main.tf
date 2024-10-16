@@ -35,7 +35,7 @@ module "projects" {
   }
   data_merges = {
     services = [
-      "stackdriver.googleapis.com"
+      # "stackdriver.googleapis.com"
     ]
   }
   data_overrides = {
