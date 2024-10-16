@@ -1,4 +1,9 @@
 # Executor SA
+
+data "google_organization" "org" {
+  domain = "devopsinuse.sk"
+}
+
 module "executor" {
   source      = "github.com/GoogleCloudPlatform/cloud-foundation-fabric//modules/iam-service-account?ref=v34.1.0"
   project_id  = var.project_id
@@ -10,9 +15,11 @@ module "executor" {
     "roles/iam.serviceAccountTokenCreator" = [module.impersonator.iam_email]
   }
   # non-authoritative roles granted *to* the service accounts on other resources
-  iam_project_roles = {
-    (var.project_id) = [
-      "roles/storage.admin"
+  iam_organization_roles = {
+    (data.google_organization.org.org_id) = [
+      "roles/resourcemanager.folderAdmin",
+      "roles/resourcemanager.projectCreator",
+      "roles/resourcemanager.tagUser"
     ]
   }
 }
