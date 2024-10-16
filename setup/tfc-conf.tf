@@ -79,11 +79,6 @@ locals {
           description : "The name of the Vault role to authenticate against",
           value : var.vault_jwt_role_name
         },
-        project_id : {
-          category : "terraform",
-          description : "GCP Project Id to list GCS buckets.",
-          value : var.project_id
-        },
         billing_account : {
           category : "terraform",
           description : "Billing Account ID.",
@@ -93,7 +88,7 @@ locals {
         prefix : {
           category : "terraform",
           description : "Factory prefix.",
-          value : "meetup"
+          value : var.prefix
         }
       }
     }

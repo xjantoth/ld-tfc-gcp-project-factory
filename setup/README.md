@@ -1,4 +1,5 @@
-### Demo Terraform GCP with Hashicorp Vault
+# Demo Terraform GCP with Hashicorp Vault
+## Kosice Innovate Meetup
 
 ```bash
 gcloud config configurations create demo-nocode
@@ -59,7 +60,7 @@ export TF_VAR_vcs_identifier="xjantoth/demo-tf-vault-gcp"
 ### Execute terraform code to setup Terrafrom Cloud, Provision Vault in dedicated GCP project and configure Vault itself (secret engine, jwt auth)
 
 ```bash
-cd tf-setup
+cd setup
 terraform init
 terraform plan
 
