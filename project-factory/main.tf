@@ -18,7 +18,7 @@
 
 locals {
   factories_config = {
-  context = {
+  substitutions = {
     folder_ids = {
       # id of the top-level Teams folder
       # derived from the 1-resman.auto.tfvars.json file
@@ -41,7 +41,7 @@ module "projects" {
   data_overrides = {
     prefix = var.prefix
   }
-  factories_config = merge(var.factories_config, {
+  factories_config = merge(local.factories_config, {
     context = {
       folder_ids = merge(
         { for k, v in var.folder_ids : k => v if v != null },
