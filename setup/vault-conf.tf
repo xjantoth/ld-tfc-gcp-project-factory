@@ -1,14 +1,3 @@
-# check "health_check" {
-#   data "http" "vault" {
-#     url = "http://${google_compute_instance.default.network_interface[0].access_config[0].nat_ip}:8200"
-#   }
-
-#   assert {
-#     condition = data.http.vault.status_code == 200
-#     error_message = "${data.http.vault.url} returned an unhealthy status code"
-#   }
-# }
-
 # Vault configuration
 resource "vault_gcp_secret_backend" "this" {
   namespace                 = "root"
@@ -63,7 +52,7 @@ path "auth/token/revoke-self" {
 }
 
 # Demo
-path "gcp-demo/static-account/demo-impersonator-0/*"
+path "${var.secret_engine_name}/static-account/${split("@", module.impersonator.email)[0]}/*"
 {
   capabilities = ["read", "list"]
 }
@@ -75,7 +64,7 @@ resource "vault_jwt_auth_backend_role" "demo_role" {
 
   backend = vault_jwt_auth_backend.jwt.path
 
-  role_name         = "role-gcp-demo-tfe-vault"
+  role_name         = var.vault_jwt_role_name
   token_policies    = ["jwt-tfc_demo_gcp_gcs"]
   user_claim        = "terraform_full_workspace"
   role_type         = "jwt"
@@ -84,6 +73,6 @@ resource "vault_jwt_auth_backend_role" "demo_role" {
   token_ttl         = 1200
 
   bound_claims = {
-    sub = "organization:demo-meetup-org:project:demo-project:*"
+    sub = "organization:${var.tfe_organization}:project:${var.tfe_project}:*"
   }
 }

@@ -30,7 +30,7 @@ module "projects" {
   data_overrides = {
     prefix = var.prefix
   }
-    factories_config = {
+  factories_config = {
     # budgets = {
     #   billing_account   = var.billing_account_id
     #   budgets_data_path = "data/budgets"

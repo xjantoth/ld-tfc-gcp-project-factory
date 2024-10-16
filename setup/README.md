@@ -38,9 +38,22 @@ export TF_VAR_max_lease_ttl_seconds="300"
 export TF_VAR_tfe_host="app.terraform.io"
 export TF_VAR_tfe_org_email="devopsinuse@gmail.com"
 export TF_VAR_vcs_tf_module="xjantoth/terraform-gcp-demo-module"
+export TF_VAR_tfc_address="https://app.terraform.io"
+export TF_VAR_source_ranges='["0.0.0.0/0"]'
+export TF_VAR_vault_jwt_role_name="role-gcp-demo-tfe-vault"
+
+export TF_VAR_tfe_organization="demo-meetup-org"
+export TF_VAR_tfe_project="demo-project"
+
 
 export TF_VAR_tfe_token=$(security find-generic-password -a $USER -s TF_CLOUD_TOKEN -w)
 export TF_VAR_vcs_github_token=$(security find-generic-password -a $USER -s GITHUB_TOKEN -w)
+
+export TF_VAR_vcs_working_direcotry="project-factory"
+export TF_VAR_vcs_branch="main"
+export TF_VAR_vcs_identifier="xjantoth/demo-tf-vault-gcp"
+
+
 ```
 
 ### Execute terraform code to setup Terrafrom Cloud, Provision Vault in dedicated GCP project and configure Vault itself (secret engine, jwt auth)
@@ -73,6 +86,7 @@ gcloud iam service-accounts keys list --iam-account=demo-impersonator-0@mystic-a
 
 | Name | Version |
 |------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | 5.44.1 |
 | <a name="provider_google.vault"></a> [google.vault](#provider\_google.vault) | 5.44.1 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.6.3 |
 | <a name="provider_tfe"></a> [tfe](#provider\_tfe) | 0.59.0 |
@@ -108,6 +122,8 @@ gcloud iam service-accounts keys list --iam-account=demo-impersonator-0@mystic-a
 | [vault_jwt_auth_backend.jwt](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/jwt_auth_backend) | resource |
 | [vault_jwt_auth_backend_role.demo_role](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/jwt_auth_backend_role) | resource |
 | [vault_policy.policies](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/policy) | resource |
+| [google_billing_account.this](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/billing_account) | data source |
+| [google_organization.org](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/organization) | data source |
 
 ## Inputs
 
@@ -123,10 +139,15 @@ gcloud iam service-accounts keys list --iam-account=demo-impersonator-0@mystic-a
 | <a name="input_tfc_address"></a> [tfc\_address](#input\_tfc\_address) | Terraform Cloud address. | `string` | n/a | yes |
 | <a name="input_tfe_host"></a> [tfe\_host](#input\_tfe\_host) | Terrafrom Cloud host. | `string` | n/a | yes |
 | <a name="input_tfe_org_email"></a> [tfe\_org\_email](#input\_tfe\_org\_email) | Github OAUTH token. | `string` | n/a | yes |
+| <a name="input_tfe_organization"></a> [tfe\_organization](#input\_tfe\_organization) | Demo Terraform Cloud organization name. | `string` | n/a | yes |
+| <a name="input_tfe_project"></a> [tfe\_project](#input\_tfe\_project) | Demo Terraform Cloud organization name. | `string` | n/a | yes |
 | <a name="input_tfe_token"></a> [tfe\_token](#input\_tfe\_token) | Terrafrom Cloud token. | `string` | n/a | yes |
-| <a name="input_variable_sets"></a> [variable\_sets](#input\_variable\_sets) | Organisation variable sets | <pre>map(object({<br>    global      = optional(bool, false)<br>    description = optional(string, "")<br>    workspaces  = optional(list(string), [])<br>    variables = map(object({<br>      value       = string<br>      category    = optional(string, "terraform")<br>      description = optional(string, null)<br>      hcl         = optional(bool, false)<br>      sensitive   = optional(bool, false)<br>    }))<br>  }))</pre> | `{}` | no |
+| <a name="input_vault_jwt_role_name"></a> [vault\_jwt\_role\_name](#input\_vault\_jwt\_role\_name) | Vault JWT role name. | `string` | n/a | yes |
+| <a name="input_vcs_branch"></a> [vcs\_branch](#input\_vcs\_branch) | VCS branch name. | `string` | n/a | yes |
 | <a name="input_vcs_github_token"></a> [vcs\_github\_token](#input\_vcs\_github\_token) | Github OAUTH token. | `string` | n/a | yes |
+| <a name="input_vcs_identifier"></a> [vcs\_identifier](#input\_vcs\_identifier) | VCS identifier name e.g. xjantoth/demo-tf-vault-gcp. | `string` | n/a | yes |
 | <a name="input_vcs_tf_module"></a> [vcs\_tf\_module](#input\_vcs\_tf\_module) | Github module path e.g. xjantoth/terraform-gcp-demo-module | `string` | n/a | yes |
+| <a name="input_vcs_working_direcotry"></a> [vcs\_working\_direcotry](#input\_vcs\_working\_direcotry) | VCS wroking directory. | `string` | n/a | yes |
 
 ## Outputs
 

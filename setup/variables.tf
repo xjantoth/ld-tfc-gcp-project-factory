@@ -53,22 +53,22 @@ variable "vcs_tf_module" {
   type        = string
 }
 
-variable "variable_sets" {
-  description = "Organisation variable sets"
-  type = map(object({
-    global      = optional(bool, false)
-    description = optional(string, "")
-    workspaces  = optional(list(string), [])
-    variables = map(object({
-      value       = string
-      category    = optional(string, "terraform")
-      description = optional(string, null)
-      hcl         = optional(bool, false)
-      sensitive   = optional(bool, false)
-    }))
-  }))
-  default = {}
-}
+# variable "variable_sets" {
+#   description = "Organisation variable sets"
+#   type = map(object({
+#     global      = optional(bool, false)
+#     description = optional(string, "")
+#     workspaces  = optional(list(string), [])
+#     variables = map(object({
+#       value       = string
+#       category    = optional(string, "terraform")
+#       description = optional(string, null)
+#       hcl         = optional(bool, false)
+#       sensitive   = optional(bool, false)
+#     }))
+#   }))
+#   default = {}
+# }
 
 variable "source_ranges" {
   type        = list(string)
@@ -83,4 +83,34 @@ variable "VAULT_PROJECT_ID" {
 variable "tfc_address" {
   type        = string
   description = "Terraform Cloud address."
+}
+
+variable "vault_jwt_role_name" {
+  type        = string
+  description = "Vault JWT role name."
+}
+
+variable "tfe_organization" {
+  type        = string
+  description = "Demo Terraform Cloud organization name."
+}
+
+variable "tfe_project" {
+  type        = string
+  description = "Demo Terraform Cloud organization name."
+}
+
+variable "vcs_working_direcotry" {
+  type        = string
+  description = "VCS wroking directory."
+}
+
+variable "vcs_branch" {
+  type        = string
+  description = "VCS branch name."
+}
+
+variable "vcs_identifier" {
+  type        = string
+  description = "VCS identifier name e.g. xjantoth/demo-tf-vault-gcp."
 }

@@ -14,24 +14,29 @@
  * limitations under the License.
  */
 
-variable "factories_config" {
-  description = "Configuration for YAML-based factories."
-  type = object({
-    folders_data_path  = optional(string, "data/hierarchy")
-    projects_data_path = optional(string, "data/projects")
-    budgets = optional(object({
-      billing_account       = string
-      budgets_data_path     = optional(string, "data/budgets")
-      notification_channels = optional(map(any), {})
-    }))
-    context = optional(object({
-      # TODO: add KMS keys
-      folder_ids        = optional(map(string), {})
-      iam_principals    = optional(map(string), {})
-      tag_values        = optional(map(string), {})
-      vpc_host_projects = optional(map(string), {})
-    }), {})
-  })
-  nullable = false
-  default  = {}
+# variable "factories_config" {
+#   description = "Configuration for YAML-based factories."
+#   type = object({
+#     folders_data_path  = optional(string, "data/hierarchy")
+#     projects_data_path = optional(string, "data/projects")
+#     budgets = optional(object({
+#       billing_account       = string
+#       budgets_data_path     = optional(string, "data/budgets")
+#       notification_channels = optional(map(any), {})
+#     }))
+#     context = optional(object({
+#       # TODO: add KMS keys
+#       folder_ids        = optional(map(string), {})
+#       iam_principals    = optional(map(string), {})
+#       tag_values        = optional(map(string), {})
+#       vpc_host_projects = optional(map(string), {})
+#     }), {})
+#   })
+#   nullable = false
+#   default  = {}
+#}
+
+variable "prefix" {
+  type        = string
+  description = "Prefix"
 }
