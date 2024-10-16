@@ -8,11 +8,13 @@ demo-nocode  True
 
 gcloud services enable iam.googleapis.com --project mystic-airway-438411-a1
 gcloud services enable cloudresourcemanager.googleapis.com --project mystic-airway-438411-a1
+gcloud services enable cloudbilling.googleapis.com --project mystic-airway-438411-a1
 
 for service in compute.googleapis.com \
 iam.googleapis.com \
 iamcredentials.googleapis.com \
 oslogin.googleapis.com \
+cloudbilling.googleapis.com \
 cloudresourcemanager.googleapis.com; \
 do gcloud services enable ${service} --project gcp-demo-vault-0; done
 ```

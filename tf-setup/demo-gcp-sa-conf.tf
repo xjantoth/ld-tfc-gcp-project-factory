@@ -19,7 +19,8 @@ module "executor" {
     (data.google_organization.org.org_id) = [
       "roles/resourcemanager.folderAdmin",
       "roles/resourcemanager.projectCreator",
-      "roles/resourcemanager.tagUser"
+      "roles/resourcemanager.tagUser",
+      "roles/billing.admin"
     ]
   }
 }
