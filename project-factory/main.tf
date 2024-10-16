@@ -16,17 +16,6 @@
 
 # tfdoc:file:description Project factory.
 
-locals {
-  factories_config = {
-  substitutions = {
-    folder_ids = {
-      # id of the top-level Teams folder
-      # derived from the 1-resman.auto.tfvars.json file
-      default = "folders/238132938234"
-    }
-  }
-}
-}
 module "projects" {
   source = "github.com/GoogleCloudPlatform/cloud-foundation-fabric//modules/project-factory?ref=v34.1.0"
   data_defaults = {
