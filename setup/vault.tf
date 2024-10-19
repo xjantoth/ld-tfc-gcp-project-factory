@@ -1,9 +1,25 @@
 locals {
-  prefix      = "demo-gcp"
-  region      = "europe-west3"
-  vm_size     = "n2-standard-2"
-  user        = "demo"
-  rsh_pub_key = "demo.pub"
+  prefix  = "demo-gcp"
+  region  = "europe-west3"
+  vm_size = "n2-standard-2"
+  user    = "demo"
+}
+
+resource "tls_private_key" "ssh" {
+  algorithm = "RSA"
+  rsa_bits  = "4096"
+}
+
+resource "local_file" "private_key" {
+  content         = tls_private_key.ssh.private_key_pem
+  filename        = "demo"
+  file_permission = "0400"
+}
+
+resource "local_file" "public_key" {
+  content         = chomp(tls_private_key.ssh.public_key_openssh)
+  filename        = "demo.pub"
+  file_permission = "0600"
 }
 
 resource "random_string" "this" {
@@ -81,7 +97,7 @@ resource "google_compute_instance" "default" {
 
   metadata = {
     block-project-ssh-keys = true
-    ssh-keys               = "${local.user}:${file(local.rsh_pub_key)}"
+    ssh-keys               = "${local.user}:${chomp(tls_private_key.ssh.public_key_openssh)}"
     startup-script = templatefile(
       "${path.module}/demo-user-data.sh.tpl",
       {

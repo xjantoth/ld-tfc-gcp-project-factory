@@ -1,8 +1,19 @@
 # Vault configuration
+resource "time_sleep" "this" {
+  create_duration = "25s"
+
+  triggers = {
+    # This sets up a proper dependency on the RAM association
+    credentials = base64decode(module.vault.key.private_key)
+    description = "Terraform Cloud JWT auth backend"
+  }
+}
+
 resource "vault_gcp_secret_backend" "this" {
-  namespace                 = "root"
-  path                      = var.secret_engine_name
-  credentials               = base64decode(module.vault.key.private_key)
+  namespace   = "root"
+  path        = var.secret_engine_name
+  credentials = resource.time_sleep.this.triggers["credentials"]
+  # credentials = base64decode(module.vault.key.private_key)
   default_lease_ttl_seconds = var.default_lease_ttl_seconds
   max_lease_ttl_seconds     = var.max_lease_ttl_seconds
 
@@ -24,7 +35,8 @@ resource "vault_gcp_secret_static_account" "this" {
 }
 
 resource "vault_jwt_auth_backend" "jwt" {
-  description        = "Terraform Cloud JWT auth backend"
+  description = resource.time_sleep.this.triggers["description"]
+  # description        = "Terraform Cloud JWT auth backend"
   path               = "jwt"
   oidc_discovery_url = var.tfc_address #
   bound_issuer       = var.tfc_address #

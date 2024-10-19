@@ -1,11 +1,11 @@
 output "ssh" {
   description = "SSH command copy/paste."
-  value       = "ssh -i ${split(".", local.rsh_pub_key)[0]} ${local.user}@${google_compute_instance.default.network_interface[0].access_config[0].nat_ip}"
+  value       = "ssh -i demo ${local.user}@${google_compute_instance.default.network_interface[0].access_config[0].nat_ip}"
 }
 
 output "tunnel" {
   description = "SSH command copy/paste."
-  value       = "ssh -L 8080:127.0.0.1:8200 -i ${split(".", local.rsh_pub_key)[0]} ${local.user}@${google_compute_instance.default.network_interface[0].access_config[0].nat_ip}"
+  value       = "ssh -L 8080:127.0.0.1:8200 -i demo ${local.user}@${google_compute_instance.default.network_interface[0].access_config[0].nat_ip}"
 }
 
 output "browser_public" {
