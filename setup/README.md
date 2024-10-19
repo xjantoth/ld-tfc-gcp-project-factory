@@ -53,7 +53,7 @@ export TF_VAR_vcs_github_token=$(security find-generic-password -a $USER -s GITH
 
 export TF_VAR_vcs_working_direcotry="project-factory"
 export TF_VAR_vcs_branch="main"
-export TF_VAR_vcs_identifier="xjantoth/demo-tf-vault-gcp"
+export TF_VAR_vcs_identifier="xjantoth/meetup-tfc-gcp-project-factory"
 
 
 ```
@@ -64,6 +64,24 @@ export TF_VAR_vcs_identifier="xjantoth/demo-tf-vault-gcp"
 cd setup
 terraform init
 terraform plan
+terraform apply
+```
+
+### Describe GCP vault secret engine
+
+
+```bash
+export VAULT_TOKEN=$(terraform output -raw  VAULT_TOKEN)
+export VAULT_ADDR=$(terraform output -raw  browser_public)
+
+# describe startic-account
+vault read gcp-demo/static-account/demo-impersonator-0
+
+Key                        Value
+---                        -----
+secret_type                service_account_key
+service_account_email      demo-impersonator-0@mystic-airway-438411-a1.iam.gserviceaccount.com
+service_account_project    mystic-airway-438411-a1
 
 ```
 
