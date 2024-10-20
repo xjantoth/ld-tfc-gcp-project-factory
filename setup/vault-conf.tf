@@ -6,6 +6,7 @@ resource "time_sleep" "this" {
     # This sets up a proper dependency on the RAM association
     credentials = base64decode(module.vault.key.private_key)
     description = "Terraform Cloud JWT auth backend"
+    name      = "jwt-tfc_demo_gcp_gcs"
   }
 }
 
@@ -46,7 +47,7 @@ resource "vault_jwt_auth_backend" "jwt" {
 
 resource "vault_policy" "policies" {
   namespace = "root"
-  name      = "jwt-tfc_demo_gcp_gcs"
+  description = resource.time_sleep.this.triggers["name"]
   policy    = <<EOT
 # Allow tokens to query themselves
 path "auth/token/lookup-self" {
