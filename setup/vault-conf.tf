@@ -47,7 +47,7 @@ resource "vault_jwt_auth_backend" "jwt" {
 
 resource "vault_policy" "policies" {
   namespace = "root"
-  description = resource.time_sleep.this.triggers["name"]
+  name = resource.time_sleep.this.triggers["name"]
   policy    = <<EOT
 # Allow tokens to query themselves
 path "auth/token/lookup-self" {
