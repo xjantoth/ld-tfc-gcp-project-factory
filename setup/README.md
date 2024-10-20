@@ -2,10 +2,18 @@
 ## Kosice Innovate Meetup
 
 ```bash
-gcloud config configurations create demo-nocode
-gcloud config configurations list
+gcloud config configurations describe demo-meetup
 ...
-demo-nocode  True
+is_active: true
+name: demo-meetup
+properties:
+  core:
+    account: jan.toth@devopsinuse.sk
+    project: mystic-airway-438411-a1
+
+gcloud config configurations list
+# activate appropriate GCP configuration
+gcloud config configurations activate demo-meetup
 
 gcloud services enable iam.googleapis.com --project mystic-airway-438411-a1
 gcloud services enable cloudresourcemanager.googleapis.com --project mystic-airway-438411-a1
@@ -25,6 +33,8 @@ do gcloud services enable ${service} --project gcp-demo-vault-0; done
 ```bash
 # Jan DISCONNECT from VPN!!!
 gcloud config set account jan.toth@devopsinuse.sk
+gcloud config configurations activate demo-meetup
+gcloud auth list
 gcloud auth application-default login
 
 export GOOGLE_PROJECT="mystic-airway-438411-a1"
@@ -89,6 +99,62 @@ service_account_project    mystic-airway-438411-a1
 ```bash
 gcloud iam service-accounts keys list --iam-account=meetup-impersonator-0@mystic-airway-438411-a1.iam.gserviceaccount.com  --project=mystic-airway-438411-a1
 ```
+
+### Deploy few GCP Projects using "project-factory"
+
+```bash
+# Wherever you are - make sure to navigat to project-factory/ subfolder
+cd ../project-factory
+
+[arch:project-factory main()U] tree .
+.
+├── README.md
+├── data
+│   ├── hierarchy
+│   │   ├── team-a
+│   │   │   ├── _config.yaml
+│   │   │   ├── dev
+│   │   │   │   └── _config.yaml
+│   │   │   └── prod
+│   │   │       └── _config.yaml
+│   │   └── team-b
+│   │       ├── _config.yaml
+│   │       ├── dev
+│   │       │   └── _config.yaml
+│   │       └── prod
+│   │           └── _config.yaml
+│   └── projects
+│       ├── kp-dev-ta-0.yaml
+│       ├── kp-dev-tb-0.yaml
+│       └── kp-prod-ta-0.yaml
+├── diagram-env.png
+├── diagram.png
+├── main.tf
+├── outputs.tf
+├── providers.tf
+├── schemas
+│   ├── budget.schema.json
+│   ├── folder.schema.json
+│   └── project.schema.json
+├── variables-fast.tf
+├── variables.tf
+└── versions.tf
+
+# lookup files that represent GCP projects
+find data/projects -type f
+...
+data/projects/kp-dev-ta-0.yaml
+data/projects/kp-dev-tb-0.yaml
+data/projects/kp-prod-ta-0.yaml
+
+# Move them if you want to have different GCP project names
+
+mv data/projects/kp-dev-ta-0.yaml data/projects/ku-dev-ta-0.yaml
+mv data/projects/kp-dev-tb-0.yaml data/projects/ku-dev-tb-0.yaml
+mv data/projects/kp-prod-ta-0.yaml data/projects/ku-prod-ta-0.yaml
+
+```
+
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
