@@ -38,7 +38,10 @@ do gcloud services enable ${service} --project gcp-demo-vault-0; done
 ### Export Environmental Variables
 
 ```bash
-# Jan DISCONNECT from VPN!!!
+# ***************************************************
+# Jan DISCONNECT from VPN and use private hotspot !!!
+# ***************************************************
+
 gcloud config set account jan.toth@devopsinuse.sk
 gcloud config configurations activate demo-meetup
 gcloud auth list
