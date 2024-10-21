@@ -26,4 +26,3 @@ variable "billing_account" {
     error_message = "Invalid `null` value for `billing_account.is_org_level`."
   }
 }
-

@@ -42,3 +42,4 @@ modules/**
 **/venv*
 **/demo
 tf-setup/demo-user-data.sh
+**/demo.pub

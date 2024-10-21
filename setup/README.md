@@ -1,6 +1,13 @@
 # Demo Terraform GCP with Hashicorp Vault
 ## Kosice Innovate Meetup
 
+open \
+https://devopsinuse.com/blog \
+https://github.com/xjantoth/meetup-tfc-gcp-project-factory/tree/main \
+"https://console.cloud.google.com/welcome/new?authuser=2&organizationId=154780322803&supportedpurview=project" \
+https://app.terraform.io \
+https://github.com/GoogleCloudPlatform/cloud-foundation-fabric/tree/master/fast/stages/2-project-factory
+
 ```bash
 gcloud config configurations describe demo-meetup
 ...
