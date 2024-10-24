@@ -1,6 +1,6 @@
 # Vault configuration
 resource "time_sleep" "this" {
-  create_duration = "90s"
+  create_duration = "120s"
 
   triggers = {
     # This sets up a proper dependency on the RAM association
