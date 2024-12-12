@@ -6,7 +6,7 @@
 ```
 open \
 https://devopsinuse.com/blog \
-https://github.com/xjantoth/meetup-tfc-gcp-project-factory/tree/main \
+https://github.com/xjantoth/ld-tfc-gcp-project-factory/tree/main \
 "https://console.cloud.google.com/welcome/new?authuser=2&organizationId=154780322803&supportedpurview=project" \
 https://app.terraform.io \
 https://github.com/GoogleCloudPlatform/cloud-foundation-fabric/tree/master/fast/stages/2-project-factory
@@ -101,7 +101,7 @@ export TF_VAR_vcs_github_token=$(security find-generic-password -a $USER -s GITH
 
 export TF_VAR_vcs_working_direcotry="project-factory"
 export TF_VAR_vcs_branch="main"
-export TF_VAR_vcs_identifier="xjantoth/meetup-tfc-gcp-project-factory"
+export TF_VAR_vcs_identifier="xjantoth/ld-tfc-gcp-project-factory"
 
 
 ```
