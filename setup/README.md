@@ -1,5 +1,5 @@
 # Demo Terraform GCP with Hashicorp Vault
-## Kosice Innovate Meetup
+## Learning Day
 
 
 ### Demo links
@@ -11,14 +11,13 @@ https://github.com/xjantoth/meetup-tfc-gcp-project-factory/tree/main \
 https://app.terraform.io \
 https://github.com/GoogleCloudPlatform/cloud-foundation-fabric/tree/master/fast/stages/2-project-factory
 
-open  ~/Documents/jan-toth-innovate-meetup-24-10-2024.pptx
 ```
 
 ```bash
-gcloud config configurations describe demo-meetup
+gcloud config configurations describe demo-ld
 ...
 is_active: true
-name: demo-meetup
+name: demo-ld
 properties:
   core:
     account: jan.toth@devopsinuse.sk
@@ -26,7 +25,7 @@ properties:
 
 gcloud config configurations list
 # activate appropriate GCP configuration
-gcloud config configurations activate demo-meetup
+gcloud config configurations activate demo-ld
 
 gcloud services enable iam.googleapis.com --project mystic-airway-438411-a1
 gcloud services enable cloudresourcemanager.googleapis.com --project mystic-airway-438411-a1
@@ -41,15 +40,38 @@ cloudresourcemanager.googleapis.com; \
 do gcloud services enable ${service} --project gcp-demo-vault-0; done
 ```
 
+### Running via Github Actions
+
+```bash
+
+
+# gcloud iam workload-identity-pools providers create-oidc "demo-tfe-provider" \
+#   --project="${PROJECT_ID}" \
+#   --location="global" \
+#   --workload-identity-pool="demo-tfe" \
+#   --display-name="Demo provider" \
+#   --attribute-mapping="google.subject=assertion.sub,attribute.repository_owner=assertion.repository_owner,attribute.repository=assertion.repository" \
+#   --attribute-condition="assertion.repository_owner=='xjantoth'" \
+#   --issuer-uri="https://token.actions.githubusercontent.com"
+
+# gcloud iam service-accounts add-iam-policy-binding "github-automator@mystic-airway-438411-a1.iam.gserviceaccount.com" \
+#   --project="${PROJECT_ID}" \
+#   --role="roles/iam.workloadIdentityUser" \
+#   --member="principalSet://iam.googleapis.com/projects/204591716734/locations/global/workloadIdentityPools/demo-tfe/attribute.repository/xjantoth/
+# meetup-tfc-gcp-project-factory
+"
+```
+
 ### Export Environmental Variables
 
 ```bash
 # ***************************************************
+
 # Jan DISCONNECT from VPN and use private hotspot !!!
 # ***************************************************
 
 gcloud config set account jan.toth@devopsinuse.sk
-gcloud config configurations activate demo-meetup
+gcloud config configurations activate demo-ld
 gcloud auth list
 gcloud auth application-default login
 
@@ -70,7 +92,7 @@ export TF_VAR_tfc_address="https://app.terraform.io"
 export TF_VAR_source_ranges='["0.0.0.0/0"]'
 export TF_VAR_vault_jwt_role_name="role-gcp-demo-tfe-vault"
 
-export TF_VAR_tfe_organization="demo-meetup-org"
+export TF_VAR_tfe_organization="demo-learning-day-org"
 export TF_VAR_tfe_project="demo-project"
 
 
@@ -109,11 +131,6 @@ secret_type                service_account_key
 service_account_email      demo-impersonator-0@mystic-airway-438411-a1.iam.gserviceaccount.com
 service_account_project    mystic-airway-438411-a1
 
-```
-
-### Usefule commands
-```bash
-gcloud iam service-accounts keys list --iam-account=meetup-impersonator-0@mystic-airway-438411-a1.iam.gserviceaccount.com  --project=mystic-airway-438411-a1
 ```
 
 ### Deploy few GCP Projects using "project-factory"

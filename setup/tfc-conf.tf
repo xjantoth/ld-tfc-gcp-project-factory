@@ -88,7 +88,7 @@ locals {
         prefix : {
           category : "terraform",
           description : "Factory prefix.",
-          value : "meetup"
+          value : "learningday"
         }
       }
     }
