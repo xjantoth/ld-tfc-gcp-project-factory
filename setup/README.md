@@ -1,4 +1,4 @@
-# Demo Terraform GCP with Hashicorp Vault
+# Demo Factory Pattern Terraform Cloud with GCP
 ## Learning Day
 
 
@@ -58,7 +58,7 @@ do gcloud services enable ${service} --project gcp-demo-vault-0; done
 #   --project="${PROJECT_ID}" \
 #   --role="roles/iam.workloadIdentityUser" \
 #   --member="principalSet://iam.googleapis.com/projects/204591716734/locations/global/workloadIdentityPools/demo-tfe/attribute.repository/xjantoth/
-# meetup-tfc-gcp-project-factory
+# ld-tfc-gcp-project-factory
 "
 ```
 
